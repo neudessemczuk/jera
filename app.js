@@ -60,12 +60,17 @@ app.post('/auth/register', async(req, res)=>{
     if(!email){
         return res.status(422).json({msg: "Email é obrigatório!"})
     }
+    if(!dataNasc){
+        return res.status(422).json({msg: 'Data de nascimento é obrigatório!'})
+    }
+
     if(!senha){
         return res.status(422).json({msg: "Senha é obrigatória!"})
     }
     if(senha !== confirmacaoSenha){
         return res.status(422).json({msg: 'As senhas não conferem!'})
     }
+   
 
     // Verificar se usuario existe
     const userExists = await User.findOne({email: email})
